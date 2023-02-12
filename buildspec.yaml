@@ -20,9 +20,9 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:test-$COMMIT_ID
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo "Update Kube Config"      
-      - aws eks update-kubeconfig --name test-deployment-eks
+      - aws eks update-kubeconfig --name dav-deployment-eks
       - echo "Apply changes to kube manifests"
       - kubectl -n backend set image deployment/test-backend test-backend=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:test-$COMMIT_ID
 artifacts:
